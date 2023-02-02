@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSS_Final.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,6 @@ namespace PSS_Final.Forms
 {
     public partial class UserForm : Form
     {
-        public UserForm()
-        {
-            InitializeComponent();
-        }
+      
     }
 }

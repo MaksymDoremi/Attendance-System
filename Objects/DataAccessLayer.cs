@@ -272,7 +272,14 @@ namespace PSS_Final.Objects
                 using (SqlCommand cmd = new SqlCommand(Program.UPDATE_USER, db.connection))
                 {
                     cmd.Parameters.AddWithValue("@userID", userInstance.Id);
-                    cmd.Parameters.AddWithValue("@rfidTag", userInstance.Rfid_tag);
+                    if (userInstance.Rfid_tag == "" || userInstance.Rfid_tag == null)
+                    {
+                        cmd.Parameters.AddWithValue("@rfidTag", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@rfidTag", userInstance.Rfid_tag);
+                    }
                     cmd.Parameters.AddWithValue("@name", userInstance.Name);
                     cmd.Parameters.AddWithValue("@surname", userInstance.Surname);
                     cmd.Parameters.AddWithValue("@photo", userInstance.Photo);
@@ -315,13 +322,18 @@ namespace PSS_Final.Objects
                     //check for rows, if there's no rows so end it all
                     if (!reader.HasRows)
                     {
+                        reader.Close();
                         return false;
                     }
                     //check for old password
                     if (Program.ComputeSHA256(oldPassword) != (string)reader[0])
                     {
+                        MessageBox.Show("Old password is not correct");
+                        reader.Close();
                         return false;
                     }
+                    reader.Close();
+
                     //finally execute update password
                     SqlCommand cmd1 = new SqlCommand(Program.UPDATE_PASSWORD, db.connection);
 
@@ -330,6 +342,7 @@ namespace PSS_Final.Objects
 
                     cmd1.ExecuteNonQuery();
                     db.connection.Close();
+                    
 
                 }
                 return true;

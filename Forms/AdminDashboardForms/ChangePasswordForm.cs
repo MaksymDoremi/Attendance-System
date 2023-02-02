@@ -35,9 +35,10 @@ namespace PSS_Final.Forms.DashboardForms
             if (bll.UpdatePassword(userID, this.oldPasswordTextBox.Text, this.newPasswordTextBox.Text))
             {
                 MessageBox.Show("Password changed successfully");
+                this.Close();
             }
 
-            this.Close();
+            
         }
     }
 }

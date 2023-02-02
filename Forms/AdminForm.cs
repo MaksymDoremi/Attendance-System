@@ -13,6 +13,7 @@ using System.Windows.Media;
 using FontAwesome.Sharp;
 using PSS_Final.DB;
 using PSS_Final.Forms.DashboardForms;
+using PSS_Final.Objects;
 using Color = System.Drawing.Color;
 
 namespace PSS_Final.Forms
@@ -26,10 +27,7 @@ namespace PSS_Final.Forms
 
         private LoginForm loginForm;
 
-        public void HelpInitMethod()
-        {
-            InitializeComponent();
-        }
+        BusinessLogicLayer bll;
 
         public AdminForm(Form loginForm, User currentUser)
         {
@@ -43,6 +41,8 @@ namespace PSS_Final.Forms
 
             this.currentUser = currentUser;
 
+            bll = new BusinessLogicLayer();
+
             InitItems();
         }
 
@@ -54,6 +54,12 @@ namespace PSS_Final.Forms
             //homepage label with user's name
             this.homePageUsernameLabel.Text = currentUser.Name + " " + currentUser.Surname;
 
+        }
+
+        public void InitItemsEventHandler(object sender, EventArgs a)
+        {
+            currentUser = bll.GetCurrentUser(currentUser.Login);
+            InitItems();
         }
         private struct RGBColors
         {
@@ -107,13 +113,14 @@ namespace PSS_Final.Forms
         private void accountInfoBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new AccountInformationForm(currentUser));
+            OpenChildForm(new AccountInformationForm(currentUser, this));
+            
         }
 
         private void usersBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new UsersForm());
+            OpenChildForm(new UsersForm(currentUser.Login));
         }
 
         private void attendanceBtn_Click(object sender, EventArgs e)

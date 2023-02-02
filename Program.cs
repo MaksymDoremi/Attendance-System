@@ -124,7 +124,12 @@ namespace PSS_Final
 
 
         }
-
+        #region Methods
+        /// <summary>
+        /// Takes string and hashes it to SHA256
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static string ComputeSHA256(string s)
         {
             string hash = String.Empty;
@@ -144,16 +149,30 @@ namespace PSS_Final
 
             return hash;
         }
-
+        /// <summary>
+        /// Takes Image and converts to byte[]
+        /// </summary>
+        /// <param name="imageIn"></param>
+        /// <returns></returns>
         public static byte[] ImageToByteArray(Image imageIn)
         {
+            //ImageConverter converter = new ImageConverter();
+            
+            //return (byte[])converter.ConvertTo(imageIn, typeof(byte[]));
+            
             using (var ms = new MemoryStream())
             {
-                imageIn.Save(ms, imageIn.RawFormat);
+                //imageIn.Save(ms, imageIn.RawFormat);
+                (new Bitmap(imageIn)).Save(ms, imageIn.RawFormat);
                 return ms.ToArray();
             }
+            
         }
-
+        /// <summary>
+        /// Takes byte[] and converts to Image
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static Image ConvertByteArrayToImage(byte[] data)
         {
             using (MemoryStream ms = new MemoryStream(data))
@@ -161,6 +180,7 @@ namespace PSS_Final
                 return Image.FromStream(ms);
             }
         }
+        #endregion
     }
 
 

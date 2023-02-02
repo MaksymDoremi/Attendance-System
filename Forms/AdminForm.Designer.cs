@@ -179,9 +179,9 @@
             // 
             // smallAvatar
             // 
-            this.smallAvatar.Location = new System.Drawing.Point(704, 23);
+            this.smallAvatar.Location = new System.Drawing.Point(704, 12);
             this.smallAvatar.Name = "smallAvatar";
-            this.smallAvatar.Size = new System.Drawing.Size(100, 50);
+            this.smallAvatar.Size = new System.Drawing.Size(100, 77);
             this.smallAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.smallAvatar.TabIndex = 1;
             this.smallAvatar.TabStop = false;

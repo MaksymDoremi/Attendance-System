@@ -10,18 +10,23 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSS_Final;
 using PSS_Final.DB;
+using PSS_Final.Objects;
 
 namespace PSS_Final.Forms.DashboardForms
 {
     public partial class AccountInformationForm : Form
     {
         private User currentUser;
+        private BusinessLogicLayer bll;
 
-        public AccountInformationForm(User currentUser)
+        private AdminForm mainForm;
+        public AccountInformationForm(User currentUser, Form mainForm)
         {
             InitializeComponent();
+            bll = new BusinessLogicLayer();
 
             this.currentUser = currentUser;
+            this.mainForm = (AdminForm)mainForm;
 
             InitItems();
 
@@ -40,7 +45,6 @@ namespace PSS_Final.Forms.DashboardForms
             this.actualSurnameFromDB.Text = currentUser.Surname;
 
             //LOAD PHOTO
-            
             this.bigAvatarPicture.Image = Program.ConvertByteArrayToImage(currentUser.Photo);
 
             //LOAD EMAIL
@@ -51,6 +55,11 @@ namespace PSS_Final.Forms.DashboardForms
 
         }
 
+        private void UpdateAfterChange(object sender, EventArgs e)
+        {
+            this.currentUser = bll.GetCurrentUser(currentUser.Login);
+            InitItems();
+        }
         private void changePasswordBtn_Click(object sender, EventArgs e)
         {
             ChangePasswordForm form = new ChangePasswordForm(currentUser.Id);
@@ -64,6 +73,8 @@ namespace PSS_Final.Forms.DashboardForms
             ChangeAccountInfoForm form = new ChangeAccountInfoForm(currentUser);
 
             form.FormClosed += DialogClosed;
+            form.ChangeAccountInfoHandler += UpdateAfterChange;
+            form.ChangeAccountInfoHandler += mainForm.InitItemsEventHandler;
             form.ShowDialog();
             
         }

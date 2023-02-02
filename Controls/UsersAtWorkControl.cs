@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PSS_Final.Forms.DashboardForms
+namespace PSS_Final.Controls
 {
-    public partial class UsersForm : Form
+    public partial class UsersAtWorkControl : UserControl
     {
-        public UsersForm()
+        public UsersAtWorkControl()
         {
             InitializeComponent();
         }

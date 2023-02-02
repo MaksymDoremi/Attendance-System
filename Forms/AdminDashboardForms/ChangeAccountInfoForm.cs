@@ -1,17 +1,8 @@
-﻿using PSS_Final.DB;
-using PSS_Final.Objects;
+﻿using PSS_Final.Objects;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using static PSS_Final.Program;
 
 namespace PSS_Final.Forms.DashboardForms
 {
@@ -22,10 +13,11 @@ namespace PSS_Final.Forms.DashboardForms
         private string surname;
         private string email;
         private string phone;
-        
 
-        //explicitly create byte array for image
-        private byte[] imageBytes;
+        /// <summary>
+        /// After changing information => pull new data from database
+        /// </summary>
+        public event EventHandler ChangeAccountInfoHandler;
 
         private User currentUser;
 
@@ -55,8 +47,22 @@ namespace PSS_Final.Forms.DashboardForms
 
 
             BusinessLogicLayer bll = new BusinessLogicLayer();
-            bll.UpdateUser(u);
-          
+            if (bll.UpdateUser(u))
+            {
+                MessageBox.Show("Changes applied");
+                if (this.ChangeAccountInfoHandler != null)
+                {
+                    ChangeAccountInfoHandler(this, e);                
+                }   
+                this.Close();
+                
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong. Contact developer");
+                this.Close();
+            }
+
         }
 
         //BROWSE IMAGES AND SET A NEW ONE
@@ -72,7 +78,6 @@ namespace PSS_Final.Forms.DashboardForms
                 {
                     imageLocation = dialog.FileName;
                     changeImageBox.ImageLocation = imageLocation;
-                    imageBytes = File.ReadAllBytes(imageLocation);
                 }
 
             }

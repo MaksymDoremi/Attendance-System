@@ -19,3 +19,6 @@ C:\Users\kinto\C#Dev\PSS_Final\PSS_Final\obj\Debug\PSS_Final.csproj.CopyComplete
 C:\Users\kinto\C#Dev\PSS_Final\PSS_Final\obj\Debug\PSS_Final.exe
 C:\Users\kinto\C#Dev\PSS_Final\PSS_Final\obj\Debug\PSS_Final.pdb
 C:\Users\kinto\C#Dev\PSS_Final\PSS_Final\bin\Debug\PSS_Final.pdb
+C:\Users\kinto\C#Dev\PSS_Final\PSS_Final\obj\Debug\PSS_Final.Controls.UsersControl.resources
+C:\Users\kinto\C#Dev\PSS_Final\PSS_Final\obj\Debug\PSS_Final.Forms.AdminDashboardForms.ChangeUserAccountInfoForm.resources
+C:\Users\kinto\C#Dev\PSS_Final\PSS_Final\obj\Debug\PSS_Final.Forms.DashboardForms.UserAccountInformationForm.resources

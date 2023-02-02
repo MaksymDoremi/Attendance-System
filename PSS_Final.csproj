@@ -55,53 +55,77 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\UsersAtWorkControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UsersAtWorkControl.Designer.cs">
+      <DependentUpon>UsersAtWorkControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UsersControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UsersControl.Designer.cs">
+      <DependentUpon>UsersControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DB\DataBaseConnection.cs" />
+    <Compile Include="Forms\AdminDashboardForms\ChangeUserAccountInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminDashboardForms\ChangeUserAccountInfoForm.Designer.cs">
+      <DependentUpon>ChangeUserAccountInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForms\AccountInformationForm.cs">
+    <Compile Include="Forms\AdminDashboardForms\AccountInformationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DashboardForms\AccountInformationForm.Designer.cs">
+    <Compile Include="Forms\AdminDashboardForms\AccountInformationForm.Designer.cs">
       <DependentUpon>AccountInformationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForms\AttendanceForm.cs">
+    <Compile Include="Forms\AdminDashboardForms\AttendanceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DashboardForms\AttendanceForm.Designer.cs">
+    <Compile Include="Forms\AdminDashboardForms\AttendanceForm.Designer.cs">
       <DependentUpon>AttendanceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForms\ChangeAccountInfoForm.cs">
+    <Compile Include="Forms\AdminDashboardForms\ChangeAccountInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DashboardForms\ChangeAccountInfoForm.Designer.cs">
+    <Compile Include="Forms\AdminDashboardForms\ChangeAccountInfoForm.Designer.cs">
       <DependentUpon>ChangeAccountInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForms\ChangePasswordForm.cs">
+    <Compile Include="Forms\AdminDashboardForms\ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DashboardForms\ChangePasswordForm.Designer.cs">
+    <Compile Include="Forms\AdminDashboardForms\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForms\HomePageForm.cs">
+    <Compile Include="Forms\AdminDashboardForms\HomePageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DashboardForms\HomePageForm.Designer.cs">
+    <Compile Include="Forms\AdminDashboardForms\HomePageForm.Designer.cs">
       <DependentUpon>HomePageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForms\MyOwnAttendanceForm.cs">
+    <Compile Include="Forms\AdminDashboardForms\MyOwnAttendanceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DashboardForms\MyOwnAttendanceForm.Designer.cs">
+    <Compile Include="Forms\AdminDashboardForms\MyOwnAttendanceForm.Designer.cs">
       <DependentUpon>MyOwnAttendanceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DashboardForms\UsersForm.cs">
+    <Compile Include="Forms\AdminDashboardForms\UserAccountInformationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DashboardForms\UsersForm.Designer.cs">
+    <Compile Include="Forms\AdminDashboardForms\UserAccountInformationForm.Designer.cs">
+      <DependentUpon>UserAccountInformationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AdminDashboardForms\UsersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminDashboardForms\UsersForm.Designer.cs">
       <DependentUpon>UsersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoginForm.cs">
@@ -122,25 +146,34 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RFID.cs" />
     <Compile Include="Objects\User.cs" />
+    <EmbeddedResource Include="Controls\UsersControl.resx">
+      <DependentUpon>UsersControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdminDashboardForms\ChangeUserAccountInfoForm.resx">
+      <DependentUpon>ChangeUserAccountInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DashboardForms\AccountInformationForm.resx">
+    <EmbeddedResource Include="Forms\AdminDashboardForms\AccountInformationForm.resx">
       <DependentUpon>AccountInformationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DashboardForms\AttendanceForm.resx">
+    <EmbeddedResource Include="Forms\AdminDashboardForms\AttendanceForm.resx">
       <DependentUpon>AttendanceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DashboardForms\ChangeAccountInfoForm.resx">
+    <EmbeddedResource Include="Forms\AdminDashboardForms\ChangeAccountInfoForm.resx">
       <DependentUpon>ChangeAccountInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DashboardForms\ChangePasswordForm.resx">
+    <EmbeddedResource Include="Forms\AdminDashboardForms\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DashboardForms\HomePageForm.resx">
+    <EmbeddedResource Include="Forms\AdminDashboardForms\HomePageForm.resx">
       <DependentUpon>HomePageForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DashboardForms\UsersForm.resx">
+    <EmbeddedResource Include="Forms\AdminDashboardForms\UserAccountInformationForm.resx">
+      <DependentUpon>UserAccountInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdminDashboardForms\UsersForm.resx">
       <DependentUpon>UsersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
@@ -171,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\UserDashboardForms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
