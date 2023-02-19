@@ -46,10 +46,23 @@ namespace PSS_Final
             this.Photo = photo;
         }
 
+        public User(string rfid_tag, string role, string login, string password, string name, string surname, byte[] photo, string email, string phone)
+        { 
+            this.Rfid_tag = rfid_tag;
+            this.Role = role;
+            this.Name = name;
+            this.Surname = surname;
+            this.Login = login;
+            this.Password = password;
+            this.Email = email;
+            this.Phone = phone;
+            this.Photo = photo;
+        }
+
         public int Id { get => id; set => id = value; }
         public string Rfid_tag { get => rfid_tag; set => rfid_tag = value; }
         public string Role { get => role; set => role = value; }
-        public int RoleID { get => (Role) == "admin" ? 1 : (Role) == "user" ? 2 : 0; }
+        public int RoleID { get => (Role) == "Admin" ? 1 : (Role) == "User" ? 2 : 0; }
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
         public string Login { get => login; set => login = value; }

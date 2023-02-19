@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.addNewUserBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -36,14 +37,27 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1164, 669);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1164, 545);
             this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // addNewUserBtn
+            // 
+            this.addNewUserBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.addNewUserBtn.Location = new System.Drawing.Point(12, 583);
+            this.addNewUserBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.addNewUserBtn.Name = "addNewUserBtn";
+            this.addNewUserBtn.Size = new System.Drawing.Size(103, 92);
+            this.addNewUserBtn.TabIndex = 2;
+            this.addNewUserBtn.Text = "+";
+            this.addNewUserBtn.UseVisualStyleBackColor = true;
+            this.addNewUserBtn.Click += new System.EventHandler(this.addNewUserBtn_Click);
             // 
             // UsersForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1188, 693);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1188, 684);
+            this.Controls.Add(this.addNewUserBtn);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "UsersForm";
             this.Text = "UsersForm";
@@ -54,5 +68,6 @@
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button addNewUserBtn;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace PSS_Final.Controls
+﻿using System.Threading;
+using Color = System.Drawing.Color;
+namespace PSS_Final.Controls
 {
     partial class UsersControl
     {
@@ -43,6 +45,8 @@
             this.userImage.TabIndex = 0;
             this.userImage.TabStop = false;
             this.userImage.Click += new System.EventHandler(this.UsersControl_OnClick);
+            this.userImage.MouseLeave += new System.EventHandler(this.UsersControl_MouseLeave);
+            this.userImage.MouseHover += new System.EventHandler(this.UsersControl_MouseHover);
             // 
             // userName
             // 
@@ -54,6 +58,8 @@
             this.userName.TabIndex = 1;
             this.userName.Text = "label1";
             this.userName.Click += new System.EventHandler(this.UsersControl_OnClick);
+            this.userName.MouseLeave += new System.EventHandler(this.UsersControl_MouseLeave);
+            this.userName.MouseHover += new System.EventHandler(this.UsersControl_MouseHover);
             // 
             // userRole
             // 
@@ -65,6 +71,8 @@
             this.userRole.TabIndex = 2;
             this.userRole.Text = "label2";
             this.userRole.Click += new System.EventHandler(this.UsersControl_OnClick);
+            this.userRole.MouseLeave += new System.EventHandler(this.UsersControl_MouseLeave);
+            this.userRole.MouseHover += new System.EventHandler(this.UsersControl_MouseHover);
             // 
             // UsersControl
             // 
@@ -77,11 +85,13 @@
             this.Name = "UsersControl";
             this.Size = new System.Drawing.Size(495, 123);
             this.Click += new System.EventHandler(this.UsersControl_OnClick);
+            this.MouseLeave += new System.EventHandler(this.UsersControl_MouseLeave);
+            this.MouseHover += new System.EventHandler(this.UsersControl_MouseHover);
             ((System.ComponentModel.ISupportInitialize)(this.userImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+        }    
 
         #endregion
 

@@ -163,6 +163,19 @@ namespace PSS_Final.Objects
             }
 
         }
+        public bool DeleteAttendance(int userID)
+        {
+            try
+            {
+                DataAccessLayer dal = new DataAccessLayer();
+                return dal.DeleteAttendance(userID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
         #endregion
     }
 }

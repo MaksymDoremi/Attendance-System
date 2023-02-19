@@ -37,13 +37,13 @@ namespace PSS_Final
 
                 currentUser = bll.GetCurrentUser(this.loginTextBox.Text);
 
-                if (currentUser.Role == "admin")
+                if (currentUser.Role == "Admin")
                 {
                     AdminForm form = new AdminForm(this, currentUser);
                     form.Show();
                     this.Hide();
                 }
-                else if (currentUser.Role == "user")
+                else if (currentUser.Role == "User")
                 {
                     UserForm form = new UserForm();
                     form.Show();

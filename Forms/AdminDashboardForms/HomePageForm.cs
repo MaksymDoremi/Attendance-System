@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSS_Final.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,18 @@ namespace PSS_Final.Forms.DashboardForms
 {
     public partial class HomePageForm : Form
     {
-        public HomePageForm()
+        private string currentUserLogin;
+        public HomePageForm(string currentUserLogin)
         {
             InitializeComponent();
+            this.currentUserLogin = currentUserLogin;
+        }
+        
+        public void InitControls()
+        {
+            BusinessLogicLayer bll = new BusinessLogicLayer();
+
+            DataTable dt = bll.GetUsers(currentUserLogin);
         }
     }
 }

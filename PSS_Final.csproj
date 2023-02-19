@@ -55,6 +55,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AttendanceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AttendanceControl.Designer.cs">
+      <DependentUpon>AttendanceControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UsersAtWorkControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -68,6 +74,12 @@
       <DependentUpon>UsersControl.cs</DependentUpon>
     </Compile>
     <Compile Include="DB\DataBaseConnection.cs" />
+    <Compile Include="Forms\AdminDashboardForms\AddNewUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdminDashboardForms\AddNewUserForm.Designer.cs">
+      <DependentUpon>AddNewUserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AdminDashboardForms\ChangeUserAccountInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,14 +152,24 @@
     <Compile Include="Forms\UserForm.Designer.cs">
       <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\Attendance.cs" />
     <Compile Include="Objects\BusinessLogicLayer.cs" />
     <Compile Include="Objects\DataAccessLayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RFID.cs" />
     <Compile Include="Objects\User.cs" />
+    <EmbeddedResource Include="Controls\AttendanceControl.resx">
+      <DependentUpon>AttendanceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UsersAtWorkControl.resx">
+      <DependentUpon>UsersAtWorkControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\UsersControl.resx">
       <DependentUpon>UsersControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdminDashboardForms\AddNewUserForm.resx">
+      <DependentUpon>AddNewUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminDashboardForms\ChangeUserAccountInfoForm.resx">
       <DependentUpon>ChangeUserAccountInfoForm.cs</DependentUpon>

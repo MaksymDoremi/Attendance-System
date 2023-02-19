@@ -1,10 +1,13 @@
-﻿using System;
+﻿using PSS_Final.Objects;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PSS_Final
 {
@@ -13,31 +16,52 @@ namespace PSS_Final
     {
         private SerialPort serialPort;
         public static string RFID_tag;
+
+        private BusinessLogicLayer bll;
         public RFID()
         {
+            bll = new BusinessLogicLayer();
             RFID_tag = "";
-            
+
             try
             {
                 serialPort = new SerialPort(AutodetectArduinoPort(), 9600);
                 serialPort.Open();
+                Thread rfidThread = new Thread(this.readTag);
+                rfidThread.Start();
             }
             catch
             {
-                Console.WriteLine("COM failed to open, maybe it's not in use.");
+                MessageBox.Show("COM failed to open, maybe it's not in use.");
             }
 
         }
 
         public void readTag()
         {
-
+            string rfid = "";
             while (true)
             {
-                System.Threading.Thread.Sleep(10);
-                RFID_tag = serialPort.ReadLine().Trim();
 
-                Console.WriteLine(RFID_tag);
+                System.Threading.Thread.Sleep(10);
+
+                rfid = serialPort.ReadLine().Trim();
+
+                if (rfid != "")
+                {
+                    Console.WriteLine(rfid);
+
+                    bll.InsertAttendance(rfid);
+
+                    rfid = "";
+                }
+
+                if (rfid == "")
+                {
+                    Console.WriteLine("null");
+                }
+
+
 
             }
 

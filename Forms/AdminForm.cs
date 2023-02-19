@@ -33,8 +33,8 @@ namespace PSS_Final.Forms
         {
             InitializeComponent();
 
-            //load home pages
-            OpenChildForm(new HomePageForm());
+            //load home page
+            OpenChildForm(new HomePageForm(currentUser.Login));
 
             //set instance of login form for log out issues
             this.loginForm = (LoginForm)loginForm;
@@ -44,8 +44,10 @@ namespace PSS_Final.Forms
             bll = new BusinessLogicLayer();
 
             InitItems();
-        }
 
+            this.timer.Start();
+        }
+        #region Init
         public void InitItems()
         {
             //photo
@@ -55,19 +57,18 @@ namespace PSS_Final.Forms
             this.homePageUsernameLabel.Text = currentUser.Name + " " + currentUser.Surname;
 
         }
-
         public void InitItemsEventHandler(object sender, EventArgs a)
         {
             currentUser = bll.GetCurrentUser(currentUser.Login);
             InitItems();
         }
+        #endregion
         private struct RGBColors
         {
             public static Color color1 = Color.FromArgb(196, 196, 196);
         }
-
-        //Methods
-        private void OpenChildForm(Form childForm)
+        #region Open Forms
+        public void OpenChildForm(Form childForm)
         {
             if (currentChildForm != null)
             {
@@ -83,7 +84,18 @@ namespace PSS_Final.Forms
             childForm.BringToFront();
             childForm.Show();
         }
-
+        public void OpenChildFormOverDashBoardForm(Form childForm)
+        {
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childFormPanel.Controls.Add(childForm);
+            childFormPanel.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+        }
+        #endregion
+        #region Activate Deactivate Buttons
         private void ActivateButton(object senderBtn, Color color)
         {
             if (senderBtn != null)
@@ -98,7 +110,6 @@ namespace PSS_Final.Forms
                 currentBtn.IconColor = color;
             }
         }
-
         private void DisableButton()
         {
             if (currentBtn != null)
@@ -109,26 +120,26 @@ namespace PSS_Final.Forms
                 currentBtn.IconColor = Color.Black;
             }
         }
-
+        #endregion
+        #region Dashboard Forms
         private void accountInfoBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
             OpenChildForm(new AccountInformationForm(currentUser, this));
             
         }
-
         private void usersBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new UsersForm(currentUser.Login));
+            OpenChildForm(new UsersForm(currentUser.Login, this));
         }
-
         private void attendanceBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
             OpenChildForm(new AttendanceForm());
         }
-
+        #endregion
+        #region Home Page and logo
         /// <summary>
         /// return to home page by clicking on logo image
         /// </summary>
@@ -137,9 +148,8 @@ namespace PSS_Final.Forms
             currentChildForm.Close();
             DisableButton();
             //return to home page
-            OpenChildForm(new HomePageForm());
+            OpenChildForm(new HomePageForm(currentUser.Login));
         }
-
         /// <summary>
         /// make logo panel sensitive to click and also use it as return to home page
         /// </summary>
@@ -148,31 +158,24 @@ namespace PSS_Final.Forms
             currentChildForm.Close();
             DisableButton();
             //return to home page
-            OpenChildForm(new HomePageForm());
+            OpenChildForm(new HomePageForm(currentUser.Login));
         }
-
+        #endregion
         private void timer_Tick(object sender, EventArgs e)
         {
             this.dateTime.Text = System.DateTime.Now.ToString();
         }
-
-        private void AdminForm_Load(object sender, EventArgs e)
-        {
-            this.timer.Start();
-
-        }
-
         private void AdminForm_Closed(object sender, EventArgs e)
         {
             timer.Stop();
             //close login form to completely kill the program
             loginForm.Close();
         }
-
         private void logOutBtn_Click(object sender, EventArgs e)
         {
             loginForm.Show();
             this.Hide();
         }
+
     }
 }

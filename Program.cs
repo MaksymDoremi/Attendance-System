@@ -69,6 +69,11 @@ namespace PSS_Final
         /// <para>@userID</para>
         /// </summary>
         public const string GET_PASSWORD = "select [User].Password from [User] where [User].ID = @userID";
+        /// <summary>
+        /// Gets last record for each user
+        /// <para>Type, Name, Surname</para>
+        /// </summary>
+        public const string ATTENDANCE_SELECT = "SELECT a.Type, u.Name, u.Surname FROM Attendance a JOIN (   SELECT Attendance.User_ID, MAX(Attendance.DateTime) AS max_datetime   FROM Attendance  GROUP BY Attendance.User_ID ) b ON a.User_ID = b.User_ID AND a.DateTime = b.max_datetime JOIN [User] u ON a.User_ID = u.ID ";
         #endregion
         #region Update
         /// <summary>
@@ -104,10 +109,18 @@ namespace PSS_Final
         static void Main()
         {
             //start arduino reader in different thread
-            //RFID r = new RFID();
-            //Thread rfidThread = new Thread(r.readTag);
-            //rfidThread.Start();
-
+            /*
+            try
+            {
+                RFID r = new RFID();
+                //Thread rfidThread = new Thread(r.readTag);
+                //rfidThread.Start();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("RFID device not found");
+            }
+            */
             //start windows forms window
             
             Application.EnableVisualStyles();
@@ -159,7 +172,11 @@ namespace PSS_Final
             //ImageConverter converter = new ImageConverter();
             
             //return (byte[])converter.ConvertTo(imageIn, typeof(byte[]));
-            
+            if(imageIn == null)
+            {
+                return null;
+            }
+
             using (var ms = new MemoryStream())
             {
                 //imageIn.Save(ms, imageIn.RawFormat);

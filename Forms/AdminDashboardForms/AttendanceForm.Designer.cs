@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.attendanceFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // label1
+            // attendanceFlowLayout
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(350, 193);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "attendace ";
+            this.attendanceFlowLayout.AutoScroll = true;
+            this.attendanceFlowLayout.BackColor = System.Drawing.SystemColors.Control;
+            this.attendanceFlowLayout.Location = new System.Drawing.Point(12, 89);
+            this.attendanceFlowLayout.Name = "attendanceFlowLayout";
+            this.attendanceFlowLayout.Size = new System.Drawing.Size(1164, 592);
+            this.attendanceFlowLayout.TabIndex = 0;
             // 
             // AttendanceForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1188, 684);
+            this.Controls.Add(this.attendanceFlowLayout);
             this.Name = "AttendanceForm";
             this.Text = "AttendanceForm";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FlowLayoutPanel attendanceFlowLayout;
     }
 }

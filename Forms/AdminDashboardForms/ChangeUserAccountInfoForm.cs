@@ -14,13 +14,17 @@ namespace PSS_Final.Forms.AdminDashboardForms
     public partial class ChangeUserAccountInfoForm : Form
     {
         private User userInstance;
+
+        public event EventHandler SubmitChanges;
         public ChangeUserAccountInfoForm(User userInstance)
         {
             InitializeComponent();
             this.userInstance = userInstance;
+
+            InitItems();
         }
 
-        public void IntiItems()
+        public void InitItems()
         {
             this.changeNameTextBox.Text = userInstance.Name;
             this.changeSurnameTextBox.Text = userInstance.Surname;
@@ -28,7 +32,11 @@ namespace PSS_Final.Forms.AdminDashboardForms
             this.changeEmailTextBox.Text = userInstance.Email;
             this.changePhoneTextBox.Text = userInstance.Phone;
 
-            this.changeImageBox.Image = Program.ConvertByteArrayToImage(userInstance.Photo);
+            if (userInstance.Photo != null)
+            {
+                this.changeImageBox.Image = Program.ConvertByteArrayToImage(userInstance.Photo);
+
+            }
 
         }
         private void browseImagesBtn_Click(object sender, EventArgs e)
@@ -59,6 +67,10 @@ namespace PSS_Final.Forms.AdminDashboardForms
             if (bll.UpdateUser(u))
             {
                 MessageBox.Show("Changes applied");
+                if(SubmitChanges != null)
+                {
+                    SubmitChanges.Invoke(this, e);
+                }
                 this.Close();
             }
             else

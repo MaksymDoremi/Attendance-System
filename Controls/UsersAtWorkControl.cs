@@ -16,5 +16,10 @@ namespace PSS_Final.Controls
         {
             InitializeComponent();
         }
+
+        public void InitItems()
+        {
+            
+        }
     }
 }

@@ -28,25 +28,30 @@ namespace PSS_Final.Objects
                 using (SqlCommand cmd = new SqlCommand(Program.INSERT_USER, db.connection))
                 {
                     //, @, @login, @password, @name, @surname, @photo, @email, @phone
-                    cmd.Parameters.AddWithValue("@rfidTag", user.Rfid_tag);
+
+                    cmd.Parameters.AddWithValue("@rfidTag", string.IsNullOrEmpty(user.Rfid_tag) ? DBNull.Value : (object)user.Rfid_tag);
                     cmd.Parameters.AddWithValue("@roleID", user.RoleID);
                     cmd.Parameters.AddWithValue("@login", user.Login);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@name", user.Name);
                     cmd.Parameters.AddWithValue("@surname", user.Surname);
-                    cmd.Parameters.AddWithValue("@photo", user.Photo);
-                    cmd.Parameters.AddWithValue("@email", user.Email);
-                    cmd.Parameters.AddWithValue("@phone", user.Photo);
-
+                    //cmd.Parameters.AddWithValue("@photo", user.Photo != null ? (object)user.Photo : DBNull.Value);
+                    cmd.Parameters.Add("@photo", SqlDbType.VarBinary, -1).Value = user.Photo != null ? (object)user.Photo : DBNull.Value;
+                    cmd.Parameters.AddWithValue("@email", string.IsNullOrEmpty(user.Email) ? DBNull.Value : (object)user.Email);
+                    cmd.Parameters.AddWithValue("@phone", string.IsNullOrEmpty(user.Phone) ? DBNull.Value : (object)user.Phone);
+                    
                     cmd.ExecuteNonQuery();
-                    db.connection.Close();
-                }
 
+                }
+                db.connection.Close();
+                db.connection.Dispose();
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return false;
             }
 
@@ -69,28 +74,30 @@ namespace PSS_Final.Objects
                     using (SqlCommand subSelect = new SqlCommand(Program.SUB_SELECT_ATTENDANCE, db.connection))
                     {
                         subSelect.Parameters.AddWithValue("@rfidTag", rfid_tag);
-                        SqlDataReader reader = cmd.ExecuteReader();
+                        SqlDataReader reader = subSelect.ExecuteReader();
                         reader.Read();
 
-                        if (!reader.IsDBNull(0))
+                        if (reader.HasRows)
                         {
-                            inOrOut = reader.GetInt32(0);
+
+                            inOrOut = Convert.ToInt32(reader[0]);
                         }
 
-
-
-
+                        reader.Close();
                     }
                     cmd.Parameters.AddWithValue("@rfidTag", rfid_tag);
                     cmd.Parameters.AddWithValue("@inOrOut", inOrOut == 0 ? 1 : 0);
                     cmd.ExecuteNonQuery();
-                    db.connection.Close();
                 }
+                db.connection.Close();
+                db.connection.Dispose();
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return false;
             }
         }
@@ -123,11 +130,14 @@ namespace PSS_Final.Objects
                     }
                 }
                 db.connection.Close();
+                db.connection.Dispose();
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return false;
             }
         }
@@ -152,15 +162,27 @@ namespace PSS_Final.Objects
 
                     if (!reader.HasRows) return null;
 
-                    User user = new User((int)reader[0], reader[1] == DBNull.Value ? "" : (string)reader[1], (string)reader[2], (string)reader[3], (string)reader[4], (string)reader[5], (byte[])reader[6], (string)reader[7], (string)reader[8]);
+                    User user = new User((int)reader[0], 
+                        reader[1] == DBNull.Value ? "" : (string)reader[1], 
+                        (string)reader[2], 
+                        (string)reader[3], 
+                        (string)reader[4], 
+                        (string)reader[5], 
+                        reader[6] == DBNull.Value ? null : (byte[])reader[6], 
+                        reader[7] == DBNull.Value ? "" : (string)reader[7], 
+                        reader[8] == DBNull.Value ? "" : (string)reader[8]);
                     db.connection.Close();
+                    db.connection.Dispose();
                     return user;
 
                 }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return null;
             }
         }
@@ -187,6 +209,7 @@ namespace PSS_Final.Objects
 
                     sda.Fill(dt);
                     db.connection.Close();
+                    db.connection.Dispose();
                     return dt;
 
                 }
@@ -194,6 +217,8 @@ namespace PSS_Final.Objects
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return null;
             }
         }
@@ -217,12 +242,15 @@ namespace PSS_Final.Objects
 
                     sda.Fill(dt);
                     db.connection.Close();
+                    db.connection.Dispose();
                     return dt;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return null;
             }
         }
@@ -247,12 +275,15 @@ namespace PSS_Final.Objects
 
                     sda.Fill(dt);
                     db.connection.Close();
+                    db.connection.Dispose();
                     return dt;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return null;
             }
         }
@@ -290,11 +321,14 @@ namespace PSS_Final.Objects
                 }
 
                 db.connection.Close();
+                db.connection.Dispose();
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return false;
             }
         }
@@ -341,15 +375,16 @@ namespace PSS_Final.Objects
                     cmd1.Parameters.AddWithValue("@userID", userID);
 
                     cmd1.ExecuteNonQuery();
-                    db.connection.Close();
-                    
-
                 }
+                db.connection.Close();
+                db.connection.Dispose();
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return false;
             }
         }
@@ -373,13 +408,48 @@ namespace PSS_Final.Objects
                     cmd.ExecuteNonQuery();
                 }
                 db.connection.Close();
+                db.connection.Dispose();
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
                 return false;
             }
+
+        }
+
+        public bool DeleteAttendance(int userID)
+        {
+            DataBaseConnection db = new DataBaseConnection();
+
+            if (db.connection.State == ConnectionState.Closed)
+            {
+                db.connection.Open();
+            }
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand(Program.DELETE_ATTENDANCE, db.connection))
+                {
+                    cmd.Parameters.AddWithValue("@userID", userID);
+
+                    cmd.ExecuteNonQuery();
+                }
+                db.connection.Close();
+                db.connection.Dispose();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                db.connection.Close();
+                db.connection.Dispose();
+                return false;
+            }
+
         }
         #endregion
     }

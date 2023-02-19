@@ -43,6 +43,7 @@
             this.nameLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
+            this.deleteUserBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.userImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -190,11 +191,24 @@
             this.closeBtn.UseVisualStyleBackColor = true;
             this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
-            // UserAccountInformation
+            // deleteUserBtn
+            // 
+            this.deleteUserBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.deleteUserBtn.ForeColor = System.Drawing.Color.Red;
+            this.deleteUserBtn.Location = new System.Drawing.Point(964, 545);
+            this.deleteUserBtn.Name = "deleteUserBtn";
+            this.deleteUserBtn.Size = new System.Drawing.Size(85, 71);
+            this.deleteUserBtn.TabIndex = 29;
+            this.deleteUserBtn.Text = "X";
+            this.deleteUserBtn.UseVisualStyleBackColor = true;
+            this.deleteUserBtn.Click += new System.EventHandler(this.deleteUserBtn_Click);
+            // 
+            // UserAccountInformationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1185, 684);
+            this.Controls.Add(this.deleteUserBtn);
             this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.label2);
@@ -211,7 +225,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "UserAccountInformation";
+            this.Name = "UserAccountInformationForm";
             this.Text = "UserAccountInformation";
             ((System.ComponentModel.ISupportInitialize)(this.userImage)).EndInit();
             this.ResumeLayout(false);
@@ -236,5 +250,6 @@
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button closeBtn;
+        private System.Windows.Forms.Button deleteUserBtn;
     }
 }
