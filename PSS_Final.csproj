@@ -104,16 +104,16 @@
     <Compile Include="Forms\AdminDashboardForms\AttendanceForm.Designer.cs">
       <DependentUpon>AttendanceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AdminDashboardForms\ChangeAccountInfoForm.cs">
+    <Compile Include="Forms\ChangeAccountInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AdminDashboardForms\ChangeAccountInfoForm.Designer.cs">
+    <Compile Include="Forms\ChangeAccountInfoForm.Designer.cs">
       <DependentUpon>ChangeAccountInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AdminDashboardForms\ChangePasswordForm.cs">
+    <Compile Include="Forms\ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AdminDashboardForms\ChangePasswordForm.Designer.cs">
+    <Compile Include="Forms\ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AdminDashboardForms\HomePageForm.cs">
@@ -121,12 +121,6 @@
     </Compile>
     <Compile Include="Forms\AdminDashboardForms\HomePageForm.Designer.cs">
       <DependentUpon>HomePageForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\AdminDashboardForms\MyOwnAttendanceForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\AdminDashboardForms\MyOwnAttendanceForm.Designer.cs">
-      <DependentUpon>MyOwnAttendanceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AdminDashboardForms\UserAccountInformationForm.cs">
       <SubType>Form</SubType>
@@ -145,6 +139,24 @@
     </Compile>
     <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserDashboardForms\UserHomePageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UserDashboardForms\UserHomePageForm.Designer.cs">
+      <DependentUpon>UserHomePageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserDashboardForms\UserAccountInformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UserDashboardForms\UserAccountInformationForm.Designer.cs">
+      <DependentUpon>UserAccountInformationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserDashboardForms\UserAttendanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UserDashboardForms\UserAttendanceForm.Designer.cs">
+      <DependentUpon>UserAttendanceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserForm.cs">
       <SubType>Form</SubType>
@@ -183,10 +195,10 @@
     <EmbeddedResource Include="Forms\AdminDashboardForms\AttendanceForm.resx">
       <DependentUpon>AttendanceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AdminDashboardForms\ChangeAccountInfoForm.resx">
+    <EmbeddedResource Include="Forms\ChangeAccountInfoForm.resx">
       <DependentUpon>ChangeAccountInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AdminDashboardForms\ChangePasswordForm.resx">
+    <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminDashboardForms\HomePageForm.resx">
@@ -200,6 +212,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserDashboardForms\UserHomePageForm.resx">
+      <DependentUpon>UserHomePageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserDashboardForms\UserAccountInformationForm.resx">
+      <DependentUpon>UserAccountInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserDashboardForms\UserAttendanceForm.resx">
+      <DependentUpon>UserAttendanceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserForm.resx">
       <DependentUpon>UserForm.cs</DependentUpon>
@@ -227,8 +248,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\UserDashboardForms\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

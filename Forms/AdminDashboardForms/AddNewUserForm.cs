@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,9 +16,18 @@ namespace PSS_Final.Forms.AdminDashboardForms
     {
 
         public event EventHandler UserAdded;
+        private Thread rfidThread;
         public AddNewUserForm()
         {
             InitializeComponent();
+            
+            RFID.CloseSerialPort();
+            
+
+            RFID r = new RFID();
+            this.rfidThread = new Thread(r.ReturnTag);
+            rfidThread.Start();
+            
         }
 
         private void addNewUserBtn_Click(object sender, EventArgs e)
@@ -62,9 +72,10 @@ namespace PSS_Final.Forms.AdminDashboardForms
             }
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void AddNewUserForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            RFID.CloseSerialPort();
+            rfidThread.Abort();
         }
     }
 }

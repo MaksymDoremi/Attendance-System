@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,58 +15,105 @@ namespace PSS_Final
 
     internal class RFID
     {
-        private SerialPort serialPort;
-        public static string RFID_tag;
+        public static SerialPort serialPort;
+
 
         private BusinessLogicLayer bll;
         public RFID()
         {
-            bll = new BusinessLogicLayer();
-            RFID_tag = "";
 
+            serialPort = new SerialPort(AutodetectArduinoPort(), 9600);
+            serialPort.Open();
+
+
+        }
+        public static void CloseSerialPort()
+        {
             try
             {
-                serialPort = new SerialPort(AutodetectArduinoPort(), 9600);
-                serialPort.Open();
-                Thread rfidThread = new Thread(this.readTag);
-                rfidThread.Start();
+                if(serialPort != null)
+                {
+                    serialPort.Close();
+                }
+                
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("COM failed to open, maybe it's not in use.");
+                //do nothing
             }
 
         }
 
-        public void readTag()
+        public static void OpenSerialPort()
         {
-            string rfid = "";
-            while (true)
+            try
+            {
+                if (serialPort != null)
+                {
+                    serialPort.Open();
+                }
+            }
+            catch(Exception ex)
             {
 
+            }
+
+        }
+
+        public void ReturnTag()
+        {
+            string rfid = "";
+
+
+            while (true)
+            {
                 System.Threading.Thread.Sleep(10);
-
-                rfid = serialPort.ReadLine().Trim();
-
-                if (rfid != "")
+                try
                 {
-                    Console.WriteLine(rfid);
+                    rfid = serialPort.ReadLine().Trim();
 
-                    bll.InsertAttendance(rfid);
-
-                    rfid = "";
+                    if (rfid != "")
+                    {
+                        Console.WriteLine(rfid);
+                        MessageBox.Show("RFID tag: " + rfid);
+                    }
                 }
-
-                if (rfid == "")
-                {
-                    Console.WriteLine("null");
-                }
-
-
+                catch { }
 
             }
 
 
+
+        }
+        public void ReadTag()
+        {
+            string rfid = "";
+            bll = new BusinessLogicLayer();
+            while (true)
+            {
+                rfid = null;
+                System.Threading.Thread.Sleep(10);
+                try
+                {
+                    rfid = serialPort.ReadLine().Trim();
+
+                    if (rfid != "" && rfid != null)
+                    {
+                        Console.WriteLine(rfid);
+
+                        bll.InsertAttendance(rfid);
+
+
+                    }
+
+
+                }
+                catch
+                {
+
+                }
+
+            }
         }
         private string AutodetectArduinoPort()
         {

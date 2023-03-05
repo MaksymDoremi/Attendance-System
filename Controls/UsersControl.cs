@@ -3,6 +3,7 @@ using PSS_Final.Forms.DashboardForms;
 using PSS_Final.Objects;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace PSS_Final.Controls
@@ -12,15 +13,20 @@ namespace PSS_Final.Controls
         private AdminForm adminForm;
         private User userInstance;
         public event EventHandler updateChanges;
+        private Thread rfidThread;
 
-        public UsersControl(User userInstance, AdminForm adminForm)
+        public UsersControl(User userInstance, AdminForm adminForm, ref Thread rfidThread)
         {
             InitializeComponent();
             this.userInstance = userInstance;
             this.adminForm = adminForm;
             InitItems();
+            this.rfidThread = rfidThread;
         }
 
+        /// <summary>
+        /// Initialize labels and image box
+        /// </summary>
         public void InitItems()
         {
             this.userName.Text = userInstance.Name + " " + userInstance.Surname;
@@ -31,7 +37,11 @@ namespace PSS_Final.Controls
             }
 
         }
-
+        /// <summary>
+        /// Method for handling updates. Subscribed to event handler from UserAccountInformationForm.updateChanges
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void InitItemsHandler(object sender, EventArgs e)
         {
             BusinessLogicLayer bll = new BusinessLogicLayer();
@@ -53,7 +63,8 @@ namespace PSS_Final.Controls
         /// <param name="e"></param>
         private void UsersControl_OnClick(object sender, EventArgs e)
         {
-            UserAccountInformationForm form = new UserAccountInformationForm(userInstance);
+            UserAccountInformationForm form = new UserAccountInformationForm(userInstance, ref rfidThread);
+            //subscribe upadate method
             form.updateChanges += InitItemsHandler;
             adminForm.OpenChildFormOverDashBoardForm(form);
 

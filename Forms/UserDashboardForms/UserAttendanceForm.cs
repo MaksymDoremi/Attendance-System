@@ -10,22 +10,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PSS_Final.Forms.AdminDashboardForms
+namespace PSS_Final.Forms.UserDashboardForms
 {
-    public partial class AttendanceForm : Form
+    public partial class UserAttendanceForm : Form
     {
         private BusinessLogicLayer bll;
-        public AttendanceForm()
+        private int userID;
+        public UserAttendanceForm(int useID)
         {
             InitializeComponent();
             bll = new BusinessLogicLayer();
+            this.userID = useID;
 
             InitAttendanceControls();
         }
 
         private void InitAttendanceControls()
         {
-            DataTable dt = bll.GetAttendance();
+            DataTable dt = bll.GetAttendanceByUser(userID);
             this.attendanceFlowLayout.Controls.Clear();
             List<AttendanceControl> attendanceList = new List<AttendanceControl>();
             foreach (DataRow dr in dt.Rows)

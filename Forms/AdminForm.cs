@@ -7,12 +7,13 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media;
 using FontAwesome.Sharp;
 using PSS_Final.DB;
-using PSS_Final.Forms.DashboardForms;
+using PSS_Final.Forms.AdminDashboardForms;
 using PSS_Final.Objects;
 using Color = System.Drawing.Color;
 
@@ -27,14 +28,17 @@ namespace PSS_Final.Forms
 
         private LoginForm loginForm;
 
-        BusinessLogicLayer bll;
+        private BusinessLogicLayer bll;
 
-        public AdminForm(Form loginForm, User currentUser)
+        private Thread rfidThread;
+
+        public AdminForm(Form loginForm, User currentUser, ref Thread rfidThread)
         {
             InitializeComponent();
 
             //load home page
             OpenChildForm(new HomePageForm(currentUser.Login));
+
 
             //set instance of login form for log out issues
             this.loginForm = (LoginForm)loginForm;
@@ -44,7 +48,7 @@ namespace PSS_Final.Forms
             bll = new BusinessLogicLayer();
 
             InitItems();
-
+            this.rfidThread = rfidThread;
             this.timer.Start();
         }
         #region Init
@@ -126,12 +130,12 @@ namespace PSS_Final.Forms
         {
             ActivateButton(sender, RGBColors.color1);
             OpenChildForm(new AccountInformationForm(currentUser, this));
-            
+
         }
         private void usersBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new UsersForm(currentUser.Login, this));
+            OpenChildForm(new UsersForm(currentUser.Login, this, ref rfidThread));
         }
         private void attendanceBtn_Click(object sender, EventArgs e)
         {

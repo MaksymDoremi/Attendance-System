@@ -1,4 +1,4 @@
-﻿namespace PSS_Final.Forms.AdminDashboardForms
+﻿namespace PSS_Final.Forms
 {
     partial class ChangeUserAccountInfoForm
     {
@@ -166,7 +166,7 @@
             this.label5.TabIndex = 22;
             this.label5.Text = "RFID_TAG";
             // 
-            // ChangeUserAccountInfo
+            // ChangeUserAccountInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -185,8 +185,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "ChangeUserAccountInfo";
+            this.Name = "ChangeUserAccountInfoForm";
             this.Text = "ChangeUserAccountInfo";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChangeUserAccountInfoForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.changeImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

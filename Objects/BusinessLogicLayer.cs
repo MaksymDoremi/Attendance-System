@@ -10,15 +10,7 @@ namespace PSS_Final.Objects
 {
     public class BusinessLogicLayer
     {
-        private List<User> users = new List<User>();
-        public BusinessLogicLayer()
-        {
-
-        }
-
-        #region Init
-
-        #endregion
+        public BusinessLogicLayer() { }
 
         #region Create
         public bool InsertUser(User user)
@@ -34,7 +26,6 @@ namespace PSS_Final.Objects
                 return false;
             }
         }
-
         public bool InsertAttendance(string rfid_tag)
         {
             try
@@ -76,7 +67,6 @@ namespace PSS_Final.Objects
                 return null;
             }
         }
-
         public DataTable GetUsers(string currentUserLogin)
         {
             try
@@ -90,7 +80,6 @@ namespace PSS_Final.Objects
                 return null;
             }
         }
-
         public DataTable GetAttendance()
         {
             try
@@ -104,13 +93,25 @@ namespace PSS_Final.Objects
                 return null;
             }
         }
-
         public DataTable GetAttendanceByUser(int userID)
         {
             try
             {
                 DataAccessLayer dal = new DataAccessLayer();
                 return dal.GetAttendaceByUser(userID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+        public DataTable GetAttendanceType()
+        {
+            try
+            {
+                DataAccessLayer dal = new DataAccessLayer();
+                return dal.GetAttendaceType();
             }
             catch (Exception ex)
             {

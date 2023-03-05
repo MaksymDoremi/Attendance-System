@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,11 +18,13 @@ namespace PSS_Final.Forms.DashboardForms
         private User userInstance;
 
         public event EventHandler updateChanges;
-        public UserAccountInformationForm(User userInstance)
+        private Thread rfidThread;
+        public UserAccountInformationForm(User userInstance, ref Thread rfidThread)
         {
             InitializeComponent();
             this.userInstance = userInstance;
             InitItems();
+            this.rfidThread = rfidThread;
         }
 
         public void InitItems()
@@ -51,10 +54,28 @@ namespace PSS_Final.Forms.DashboardForms
             }
 
         }
+        private void StartRfidThread(object sender, EventArgs e)
+        {
+            
+            if (rfidThread != null)
+            {
+                RFID.OpenSerialPort();
+                this.rfidThread.Resume();
+            }
+            
+        }
         private void changeAccountInfoBtn_Click(object sender, EventArgs e)
         {
             ChangeUserAccountInfoForm form = new ChangeUserAccountInfoForm(userInstance);
             form.SubmitChanges += InitItemsEvent;
+            form.FormClosed += StartRfidThread;
+            
+            if (rfidThread != null)
+            {
+                RFID.CloseSerialPort();
+                this.rfidThread.Suspend();
+            }
+            
             form.ShowDialog();
         }
 

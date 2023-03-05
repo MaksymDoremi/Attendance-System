@@ -14,6 +14,11 @@ namespace PSS_Final.Objects
     public class DataAccessLayer
     {
         #region Create
+        /// <summary>
+        /// Inserts user into database
+        /// </summary>
+        /// <param name="user">User instance to be inserted</param>
+        /// <returns>True if insert was successfull</returns>
         public bool InsertUser(User user)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -27,36 +32,37 @@ namespace PSS_Final.Objects
             {
                 using (SqlCommand cmd = new SqlCommand(Program.INSERT_USER, db.connection))
                 {
-                    //, @, @login, @password, @name, @surname, @photo, @email, @phone
-
                     cmd.Parameters.AddWithValue("@rfidTag", string.IsNullOrEmpty(user.Rfid_tag) ? DBNull.Value : (object)user.Rfid_tag);
                     cmd.Parameters.AddWithValue("@roleID", user.RoleID);
                     cmd.Parameters.AddWithValue("@login", user.Login);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@name", user.Name);
                     cmd.Parameters.AddWithValue("@surname", user.Surname);
-                    //cmd.Parameters.AddWithValue("@photo", user.Photo != null ? (object)user.Photo : DBNull.Value);
                     cmd.Parameters.Add("@photo", SqlDbType.VarBinary, -1).Value = user.Photo != null ? (object)user.Photo : DBNull.Value;
                     cmd.Parameters.AddWithValue("@email", string.IsNullOrEmpty(user.Email) ? DBNull.Value : (object)user.Email);
                     cmd.Parameters.AddWithValue("@phone", string.IsNullOrEmpty(user.Phone) ? DBNull.Value : (object)user.Phone);
-                    
+
                     cmd.ExecuteNonQuery();
 
                 }
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return false;
             }
 
         }
-
+        /// <summary>
+        /// Inserts attendance record with current timestamp
+        /// </summary>
+        /// <param name="rfid_tag">Rfid tag taken from usb bus</param>
+        /// <returns>True if insert was successfull</returns>
         public bool InsertAttendance(string rfid_tag)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -89,20 +95,26 @@ namespace PSS_Final.Objects
                     cmd.Parameters.AddWithValue("@inOrOut", inOrOut == 0 ? 1 : 0);
                     cmd.ExecuteNonQuery();
                 }
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return false;
             }
         }
         #endregion
         #region Read
+        /// <summary>
+        /// Checks if login and password exist in database
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns>True if record exists</returns>
         public bool Login(string login, string password)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -129,18 +141,23 @@ namespace PSS_Final.Objects
                         return false;
                     }
                 }
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return false;
             }
         }
+        /// <summary>
+        /// Gets current user from database by inserted login
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns>User where login = inserted login</returns>
         public User GetCurrentUser(string login)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -162,17 +179,17 @@ namespace PSS_Final.Objects
 
                     if (!reader.HasRows) return null;
 
-                    User user = new User((int)reader[0], 
-                        reader[1] == DBNull.Value ? "" : (string)reader[1], 
-                        (string)reader[2], 
-                        (string)reader[3], 
-                        (string)reader[4], 
-                        (string)reader[5], 
-                        reader[6] == DBNull.Value ? null : (byte[])reader[6], 
-                        reader[7] == DBNull.Value ? "" : (string)reader[7], 
+                    User user = new User((int)reader[0],
+                        reader[1] == DBNull.Value ? "" : (string)reader[1],
+                        (string)reader[2],
+                        (string)reader[3],
+                        (string)reader[4],
+                        (string)reader[5],
+                        reader[6] == DBNull.Value ? null : (byte[])reader[6],
+                        reader[7] == DBNull.Value ? "" : (string)reader[7],
                         reader[8] == DBNull.Value ? "" : (string)reader[8]);
-                    db.connection.Close();
-                    db.connection.Dispose();
+                    db.CloseConnection();
+
                     return user;
 
                 }
@@ -181,12 +198,16 @@ namespace PSS_Final.Objects
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return null;
             }
         }
-
+        /// <summary>
+        /// Gets all users from database except of current
+        /// </summary>
+        /// <param name="currentUserLogin"></param>
+        /// <returns>DataTable with users</returns>
         public DataTable GetUsers(string currentUserLogin)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -208,8 +229,8 @@ namespace PSS_Final.Objects
                     DataTable dt = new DataTable();
 
                     sda.Fill(dt);
-                    db.connection.Close();
-                    db.connection.Dispose();
+                    db.CloseConnection();
+
                     return dt;
 
                 }
@@ -217,12 +238,15 @@ namespace PSS_Final.Objects
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return null;
             }
         }
-
+        /// <summary>
+        /// Gets all attendance from database
+        /// </summary>
+        /// <returns>DataTable of attendance records</returns>
         public DataTable GetAttendance()
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -241,20 +265,24 @@ namespace PSS_Final.Objects
                     DataTable dt = new DataTable();
 
                     sda.Fill(dt);
-                    db.connection.Close();
-                    db.connection.Dispose();
+                    db.CloseConnection();
+
                     return dt;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return null;
             }
         }
-
+        /// <summary>
+        /// Gets attendance by userID. Used for users with role "User"
+        /// </summary>
+        /// <param name="userID">current user id</param>
+        /// <returns>DataTable of attendance records</returns>
         public DataTable GetAttendaceByUser(int userID)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -274,21 +302,61 @@ namespace PSS_Final.Objects
                     DataTable dt = new DataTable();
 
                     sda.Fill(dt);
-                    db.connection.Close();
-                    db.connection.Dispose();
+                    db.CloseConnection();
+
                     return dt;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
+                return null;
+            }
+        }
+        /// <summary>
+        /// Gets last attendance records with type - check in or check out
+        /// </summary>
+        /// <returns>DataTable of Attendance records</returns>
+        public DataTable GetAttendaceType()
+        {
+            DataBaseConnection db = new DataBaseConnection();
+
+            if (db.connection.State == ConnectionState.Closed)
+            {
+                db.connection.Open();
+            }
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand(Program.ATTENDANCE_TYPE, db.connection);
+
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+
+                    sda.Fill(dt);
+                    db.CloseConnection();
+
+                    return dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                db.CloseConnection();
+
                 return null;
             }
         }
         #endregion
         #region Update
+        /// <summary>
+        /// Updates user in database
+        /// </summary>
+        /// <param name="userInstance">New user instance (data collected from textBoxes)</param>
+        /// <returns>True if update was successfull</returns>
         public bool UpdateUser(User userInstance)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -320,18 +388,25 @@ namespace PSS_Final.Objects
                     cmd.ExecuteNonQuery();
                 }
 
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return false;
             }
         }
+        /// <summary>
+        /// Updates password in database where userID
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="oldPassword">Old password for the first access</param>
+        /// <param name="newPassword">Final password to be applied</param>
+        /// <returns>True if update was successfull</returns>
         public bool UpdatePassword(int userID, string oldPassword, string newPassword)
         {
 
@@ -376,20 +451,25 @@ namespace PSS_Final.Objects
 
                     cmd1.ExecuteNonQuery();
                 }
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return false;
             }
         }
         #endregion
         #region Delete
+        /// <summary>
+        /// Deletes user from database by id
+        /// </summary>
+        /// <param name="userID">User id which is gonna be deleted</param>
+        /// <returns>True if delete was successfull</returns>
         public bool DeleteUser(int userID)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -407,20 +487,24 @@ namespace PSS_Final.Objects
 
                     cmd.ExecuteNonQuery();
                 }
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return false;
             }
 
         }
-
+        /// <summary>
+        /// Deletes all attendance records for user
+        /// </summary>
+        /// <param name="userID">User id which is referencing</param>
+        /// <returns>True is delete was successfull</returns>
         public bool DeleteAttendance(int userID)
         {
             DataBaseConnection db = new DataBaseConnection();
@@ -438,15 +522,15 @@ namespace PSS_Final.Objects
 
                     cmd.ExecuteNonQuery();
                 }
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                db.connection.Close();
-                db.connection.Dispose();
+                db.CloseConnection();
+
                 return false;
             }
 

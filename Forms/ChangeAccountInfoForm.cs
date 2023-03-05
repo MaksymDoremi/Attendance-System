@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using static PSS_Final.Program;
 
-namespace PSS_Final.Forms.DashboardForms
+namespace PSS_Final.Forms
 {
     public partial class ChangeAccountInfoForm : Form
     {

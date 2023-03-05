@@ -16,5 +16,11 @@ namespace PSS_Final.DB
         {
             connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString);
         }
+
+        public void CloseConnection()
+        {
+            connection.Close();
+            connection.Dispose();
+        }
     }
 }

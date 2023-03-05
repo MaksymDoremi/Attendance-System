@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PSS_Final.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,13 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PSS_Final.Forms.DashboardForms
+namespace PSS_Final.Forms.UserDashboardForms
 {
-    public partial class MyOwnAttendanceForm : Form
+    public partial class UserHomePageForm : Form
     {
-        public MyOwnAttendanceForm()
+        
+        public UserHomePageForm()
         {
             InitializeComponent();
+            
         }
+ 
     }
 }

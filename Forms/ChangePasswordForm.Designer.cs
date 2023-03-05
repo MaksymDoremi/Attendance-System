@@ -1,4 +1,4 @@
-﻿namespace PSS_Final.Forms.DashboardForms
+﻿namespace PSS_Final.Forms
 {
     partial class ChangePasswordForm
     {

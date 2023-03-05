@@ -1,6 +1,6 @@
-﻿namespace PSS_Final.Forms.AdminDashboardForms
+﻿namespace PSS_Final.Forms.UserDashboardForms
 {
-    partial class AttendanceForm
+    partial class UserHomePageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,33 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.attendanceFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // attendanceFlowLayout
+            // label1
             // 
-            this.attendanceFlowLayout.AutoScroll = true;
-            this.attendanceFlowLayout.BackColor = System.Drawing.SystemColors.Control;
-            this.attendanceFlowLayout.Location = new System.Drawing.Point(12, 89);
-            this.attendanceFlowLayout.Name = "attendanceFlowLayout";
-            this.attendanceFlowLayout.Size = new System.Drawing.Size(1164, 592);
-            this.attendanceFlowLayout.TabIndex = 0;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(377, 209);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 16);
+            this.label1.TabIndex = 0;
             // 
-            // AttendanceForm
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 12);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1164, 660);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // HomePageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1188, 684);
-            this.Controls.Add(this.attendanceFlowLayout);
-            this.Name = "AttendanceForm";
-            this.Text = "AttendanceForm";
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.label1);
+            this.Name = "HomePageForm";
+            this.Text = "HomePageForm";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel attendanceFlowLayout;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

@@ -221,7 +221,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Admin GUI";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminForm_Closed);
-      
             this.leftPanel.ResumeLayout(false);
             this.logoPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logoHomeBtn)).EndInit();

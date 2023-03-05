@@ -1,6 +1,6 @@
-﻿namespace PSS_Final.Forms.AdminDashboardForms
+﻿namespace PSS_Final.Forms.UserDashboardForms
 {
-    partial class AccountInformationForm
+    partial class UserAccountInformationForm
     {
         /// <summary>
         /// Required designer variable.

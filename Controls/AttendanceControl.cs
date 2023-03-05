@@ -23,6 +23,9 @@ namespace PSS_Final.Controls
             IntiItems();
         }
 
+        /// <summary>
+        /// Initialize labels
+        /// </summary>
         private void IntiItems()
         {
             this.nameLabel.Text = attendanceInstance.Name+" "+attendanceInstance.Surname;
@@ -30,6 +33,7 @@ namespace PSS_Final.Controls
             this.comeOrLeaveLabel.Text = attendanceInstance.TypeString;
         }
 
+        #region Mouse Listeners
         private void AttendanceControl_MouseHover(object sender, EventArgs e)
         {
             this.BackColor = Color.FromArgb(145, 145, 145);
@@ -39,5 +43,6 @@ namespace PSS_Final.Controls
         {
             this.BackColor = System.Drawing.SystemColors.Control;
         }
+        #endregion
     }
 }

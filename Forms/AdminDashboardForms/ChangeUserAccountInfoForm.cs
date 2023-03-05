@@ -6,22 +6,36 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PSS_Final.Forms.AdminDashboardForms
+namespace PSS_Final.Forms
 {
     public partial class ChangeUserAccountInfoForm : Form
     {
         private User userInstance;
 
         public event EventHandler SubmitChanges;
+        private Thread rfidThread;
         public ChangeUserAccountInfoForm(User userInstance)
         {
             InitializeComponent();
             this.userInstance = userInstance;
 
             InitItems();
+
+            try
+            {
+                RFID r = new RFID();
+                this.rfidThread = new Thread(r.ReturnTag);
+                rfidThread.Start();
+            }catch(Exception ex)
+            {
+                MessageBox.Show("RFID can't be opened");
+            }
+            
+            
         }
 
         public void InitItems()
@@ -77,6 +91,16 @@ namespace PSS_Final.Forms.AdminDashboardForms
             {
                 MessageBox.Show("Something went wrong");
             }
+        }
+
+        private void ChangeUserAccountInfoForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (rfidThread != null)
+            {
+                RFID.CloseSerialPort();
+                this.rfidThread.Abort();
+            }
+            
         }
     }
 }

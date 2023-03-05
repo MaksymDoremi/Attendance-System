@@ -1,34 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using PSS_Final;
-using PSS_Final.DB;
-using PSS_Final.Objects;
-using PSS_Final.Forms;
 
-namespace PSS_Final.Forms.AdminDashboardForms
+using System.Windows.Forms;
+using PSS_Final.Forms;
+using PSS_Final.Objects;
+
+namespace PSS_Final.Forms.UserDashboardForms
 {
-    public partial class AccountInformationForm : Form
+    public partial class UserAccountInformationForm : Form
     {
         private User currentUser;
         private BusinessLogicLayer bll;
 
-        private AdminForm mainForm;
-        public AccountInformationForm(User currentUser, AdminForm mainForm)
+        private UserForm mainForm;
+        public UserAccountInformationForm(User currentUser, UserForm mainForm)
         {
             InitializeComponent();
             bll = new BusinessLogicLayer();
 
             this.currentUser = currentUser;
            
-            this.mainForm = mainForm;
+            this.mainForm = (UserForm)mainForm;
             
             InitItems();
 

@@ -12,7 +12,7 @@ using PSS_Final;
 using PSS_Final.DB;
 using PSS_Final.Objects;
 
-namespace PSS_Final.Forms.DashboardForms
+namespace PSS_Final.Forms
 {
     public partial class ChangePasswordForm : Form
     {

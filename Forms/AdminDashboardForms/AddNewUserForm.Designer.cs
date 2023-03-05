@@ -257,6 +257,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AddNewUserForm";
             this.Text = "AddNewUserForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddNewUserForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.imageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

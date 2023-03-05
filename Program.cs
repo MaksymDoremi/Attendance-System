@@ -73,7 +73,7 @@ namespace PSS_Final
         /// Gets last record for each user
         /// <para>Type, Name, Surname</para>
         /// </summary>
-        public const string ATTENDANCE_SELECT = "SELECT a.Type, u.Name, u.Surname FROM Attendance a JOIN (   SELECT Attendance.User_ID, MAX(Attendance.DateTime) AS max_datetime   FROM Attendance  GROUP BY Attendance.User_ID ) b ON a.User_ID = b.User_ID AND a.DateTime = b.max_datetime JOIN [User] u ON a.User_ID = u.ID ";
+        public const string ATTENDANCE_TYPE = "SELECT a.Type, u.Name, u.Surname FROM Attendance a JOIN (   SELECT Attendance.User_ID, MAX(Attendance.DateTime) AS max_datetime   FROM Attendance  GROUP BY Attendance.User_ID ) b ON a.User_ID = b.User_ID AND a.DateTime = b.max_datetime JOIN [User] u ON a.User_ID = u.ID ";
         #endregion
         #region Update
         /// <summary>
@@ -109,33 +109,28 @@ namespace PSS_Final
         static void Main()
         {
             //start arduino reader in different thread
-            /*
-            try
-            {
-                RFID r = new RFID();
-                //Thread rfidThread = new Thread(r.readTag);
-                //rfidThread.Start();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("RFID device not found");
-            }
-            */
+
+
+
+
+
             //start windows forms window
-            
+
+            //Thread thread = new Thread(RunProgram);
+            //thread.Start();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());
-            
-
-            Console.WriteLine(ComputeSHA256("admin2"));
-            //thread to read rfid
 
 
-            //Console.WriteLine(LoginForm.ComputeSHA256("pass2"));
+        }
 
-
-
+        private static void RunProgram()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new LoginForm());
         }
         #region Methods
         /// <summary>
@@ -170,9 +165,9 @@ namespace PSS_Final
         public static byte[] ImageToByteArray(Image imageIn)
         {
             //ImageConverter converter = new ImageConverter();
-            
+
             //return (byte[])converter.ConvertTo(imageIn, typeof(byte[]));
-            if(imageIn == null)
+            if (imageIn == null)
             {
                 return null;
             }
@@ -183,7 +178,7 @@ namespace PSS_Final
                 (new Bitmap(imageIn)).Save(ms, imageIn.RawFormat);
                 return ms.ToArray();
             }
-            
+
         }
         /// <summary>
         /// Takes byte[] and converts to Image
